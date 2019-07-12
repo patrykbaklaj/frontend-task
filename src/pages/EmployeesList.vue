@@ -9,82 +9,104 @@
                 <th>Address</th>
                 <th>Phone</th>
                 <th>Email</th>
+                <th>Actions</th>
             </tr>
-            <tr v-for="employee in employees" class="employees-list__list-row">
+            <tr v-for="employee in employees" class="employees-list__list-row" :key="employee.id">
                 <td>{{employee.id}}</td>
                 <td>{{employee.name}}</td>
                 <td>{{employee.address.street}} {{employee.address.suite}} {{employee.address.city}}</td>
                 <td>{{employee.phone}}</td>
-                <td><a :href="`mailto:${ employee.email }`">{{employee.email}}</a></td>
+                <td>
+                    <a :href="`mailto:${ employee.email }`">{{employee.email}}</a>
+                </td>
+                <td>
+                    <Button
+                        value="edit"
+                        class="button-edit"
+                        :id="employee.id"
+                        @buttonClicked="handleEditClick"
+                    ></Button>
+                </td>
             </tr>
         </table>
     </div>
 </template>
 <script>
-    import axios from 'axios';
+import axios from "axios";
+// import Button Component
+import Button from "@components/Button";
 
-    export default {
-        data() {
-            return {
-                loading: false,
-                employees: [],
-            }
-        },
-        created () {
-            this.fetchData()
-        },
-        watch: {
-            '$route': 'fetchData'
-        },
-        methods: {
-            fetchData () {
-                this.loading = true;
+export default {
+    data() {
+        return {
+            loading: false,
+            employees: []
+        };
+    },
+    created() {
+        this.fetchData();
+    },
+    watch: {
+        $route: "fetchData"
+    },
+    methods: {
+        fetchData() {
+            this.loading = true;
 
-                axios.get('https://jsonplaceholder.typicode.com/users')
-                    .then(({data}) => {
-                        this.employees = data;
-                    })
-                    .finally(() => {
-                        this.loading = false;
-                    })
-            }
+            axios
+                .get("https://jsonplaceholder.typicode.com/users")
+                .then(({ data }) => {
+                    this.employees = data;
+                })
+                .finally(() => {
+                    this.loading = false;
+                });
+        },
+        // method to handle button Click
+        handleEditClick(id) {
+            // TODO
+            // handle Edit Button click
+            console.log("Emp ID: " + id);
         }
-    };
-
+    },
+    components: {
+        Button
+    }
+};
 </script>
 <style lang="scss" scoped>
-    .employees-list {
-        &__header {
-            font-size: 20px;
-            padding: 0 0 10px;
-        }
+.employees-list {
+    &__header {
+        font-size: 20px;
+        padding: 0 0 10px;
+    }
 
-        &__loading {
-            color: #999d9d;
-            text-align: center;
-        }
+    &__loading {
+        color: #999d9d;
+        text-align: center;
+    }
 
-        &__list {
-            font-size: 14px;
-            width: 100%;
-            border-collapse: collapse;
-        }
+    &__list {
+        font-size: 14px;
+        width: 100%;
+        border-collapse: collapse;
+    }
 
-        &__list-header {
-            background: #f7f8f9;
-            border-bottom: 1px solid #999d9d;
+    &__list-header {
+        background: #f7f8f9;
+        border-bottom: 1px solid #999d9d;
 
-            th {
-                padding: 8px;
-            }
-        }
-
-        &__list-row {
-            background: #fff;
-
-            td {
-                padding: 8px;
-            }
+        th {
+            padding: 8px;
         }
     }
+
+    &__list-row {
+        background: #fff;
+
+        td {
+            padding: 8px;
+        }
+    }
+}
 </style>
