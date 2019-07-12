@@ -35,6 +35,8 @@
 import axios from "axios";
 // import Button Component
 import Button from "@components/Button";
+// import router to navigate on button click
+import router from "../router";
 
 export default {
     data() {
@@ -54,7 +56,8 @@ export default {
             this.loading = true;
 
             axios
-                .get("https://jsonplaceholder.typicode.com/users")
+                // .get("https://jsonplaceholder.typicode.com/users")
+                .get("http://localhost:3000/users/")
                 .then(({ data }) => {
                     this.employees = data;
                 })
@@ -64,9 +67,8 @@ export default {
         },
         // method to handle button Click
         handleEditClick(id) {
-            // TODO
-            // handle Edit Button click
-            console.log("Emp ID: " + id);
+            // redirect to edit form whith given id
+            router.push(`/edit/${id}`);
         }
     },
     components: {
