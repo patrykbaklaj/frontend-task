@@ -21,7 +21,8 @@
 <style lang="scss" scoped>
     .app {
         position: relative;
-        height: 100%;
+        min-height: 100vh;
+        padding-bottom: 80px;
     }
 
     .pages-container {

@@ -156,6 +156,7 @@ export default {
     .user-edit {
         &__form {
             min-width: 80%;
+            padding: 1.5em;
         }
 
         &__input-group {
@@ -167,6 +168,14 @@ export default {
         }
         &__input {
             width: 100%;
+        }
+    }
+
+    @media screen and (max-width: 576px) {
+        .user-edit {
+            &__form {
+                min-width: 92%;
+            }
         }
     }
 }

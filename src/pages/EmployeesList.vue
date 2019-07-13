@@ -12,14 +12,14 @@
                 <th>Actions</th>
             </tr>
             <tr v-for="employee in employees" class="employees-list__list-row" :key="employee.id">
-                <td>{{employee.id}}</td>
-                <td>{{employee.name}}</td>
-                <td>{{employee.address.street}} {{employee.address.suite}} {{employee.address.city}}</td>
-                <td>{{employee.phone}}</td>
-                <td>
+                <td data-title="id">{{employee.id}}</td>
+                <td data-title="name">{{employee.name}}</td>
+                <td data-title="address">{{employee.address.street}} {{employee.address.suite}} {{employee.address.city}}</td>
+                <td data-title="phone">{{employee.phone}}</td>
+                <td data-title="email">
                     <a :href="`mailto:${ employee.email }`">{{employee.email}}</a>
                 </td>
-                <td>
+                <td data-title="actions">
                     <Button
                         value="edit"
                         class="button-edit"
@@ -108,6 +108,58 @@ export default {
 
         td {
             padding: 8px;
+        }
+    }
+}
+
+// add media queries
+@media only screen and (max-width: 768px) {
+    // set display block to table elements
+    .employees-list {
+        thead,
+        tbody,
+        th,
+        td,
+        tr {
+            display: block;
+        }
+        // hide table header
+        &__list-header {
+            th {
+                display: none;
+            }
+        }
+
+        tr {
+            border-bottom: 1px solid #000;
+        }
+        // move table data to right
+        td {
+            border: none;
+            border-bottom: 1px solid #ced4da;
+            position: relative;
+            padding-left: 40%;
+            text-align: left;
+        }
+
+        td {
+            // display labels for data
+            &::before {
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                line-height: 2;
+                left: 10px;
+                width: 35%;
+                font-weight: bold;
+            }
+        }
+
+        // label data as content
+        td {
+            &::before {
+                content: attr(data-title);
+            }
         }
     }
 }
