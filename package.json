@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "web": "webpack-dev-server --inline --progress --config webpack.config.js"
+    "web": "webpack-dev-server --inline --progress --config webpack.config.js",
+    "api": "json-server --watch db.json",
+    "dev": "concurrently --kill-others \"npm run web\" \"npm run api\""
   },
   "author": "Fitatu",
   "license": "ISC",
@@ -17,8 +19,10 @@
     "@babel/preset-env": "^7.5.0",
     "babel-loader": "^8.0.6",
     "babel-preset-env": "^1.7.0",
+    "concurrently": "^4.1.1",
     "css-loader": "^3.0.0",
     "html-webpack-plugin": "^3.2.0",
+    "json-server": "^0.15.0",
     "node-sass": "^4.12.0",
     "sass-loader": "^7.1.0",
     "vue-loader": "^15.7.0",
